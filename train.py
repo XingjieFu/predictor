@@ -13,7 +13,7 @@ from tensorboardX import SummaryWriter
 import time
 from torch.utils.data import Dataset, DataLoader
 import tqdm
-log_writer = SummaryWriter()
+log_writer = SummaryWriter(log_dir="./logs")
 
 os.environ['CUDA_LAUNCH_BLOCKING'] ='1'
 
@@ -41,6 +41,7 @@ def cal_performance(tra_pred,tra_true):
 
 def train(model, dataloader, optimizer, device, opt):
     for id, epoch_i in enumerate(tqdm.tqdm(range(opt.epoch))):
+        # print("epoch_i = ", epoch_i)
         model.train()
         total_loss = 0 # loss in each epoch
         for idx, data in enumerate(dataloader):
@@ -48,9 +49,9 @@ def train(model, dataloader, optimizer, device, opt):
             tra_pred = model(input_data=data.to(device).to(torch.float32), device=device)
             # backward and update parameters
             loss = cal_performance(tra_pred, data[:, 1:, :].to(device).to(torch.float32))
-            loss.backward()
-            optimizer.step_and_update_lr()
-            total_loss += loss.item()
+            loss.backward()  # 计算梯度
+            optimizer.step_and_update_lr() # 更新参数并调整学习率
+            total_loss += loss.item()  # 累积损失
         log_writer.add_scalar("loss", total_loss, epoch_i)
         log_writer.add_scalar("lr", optimizer.get_lr(), epoch_i)
         if epoch_i % 100 == 0:
