@@ -35,13 +35,12 @@ def DrawTrajectory(tra_pred,tra_true):
     plt.plot(true[:,0],true[:,1], "b-*", label="True")
     plt.show()
 
+# 通过计算训练值和真值之间的误差来作为loss
 def cal_performance(tra_pred,tra_true):
     return F.mse_loss(tra_pred,tra_true)
 
-
 def train(model, dataloader, optimizer, device, opt):
     for id, epoch_i in enumerate(tqdm.tqdm(range(opt.epoch))):
-        # print("epoch_i = ", epoch_i)
         model.train()
         total_loss = 0 # loss in each epoch
         for idx, data in enumerate(dataloader):

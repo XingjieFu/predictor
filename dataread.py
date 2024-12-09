@@ -20,7 +20,8 @@ pass
 
 class ShipTrajData(Dataset):
     def __init__(self, data): # x,y,v,theta
-        self.data = torch.from_numpy(np.array(data)).to(torch.float32)
+        data = np.array(data)
+        self.data = torch.from_numpy(data).to(torch.float32)
     def __getitem__(self, index):
         return self.data[index, :, :]
     def __len__(self):
