@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 
 df=pd.read_excel('./data/413719000/413719000.xls')
@@ -12,4 +13,4 @@ data=pd.concat([np.floor((df['经度']-df['经度'].values.min())/0.00063212),
                   np.floor((df['纬度']-df['纬度'].values.min())/0.000989464),
                   np.floor((df['速度']-df['速度'].values.min())/0.0596),
                   np.floor((df['对地航向']-df['对地航向'].values.min())/1.436)],axis=1)
-data.to_pickle('./data/413719000/413719000.pkl')
+data.to_pickle('./data/413719000/new.pkl')

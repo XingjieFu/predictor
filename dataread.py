@@ -3,7 +3,7 @@ from torch.utils.data import Dataset
 import numpy as np
 import torch
 
-f=open('./data/413719000/413719000.pkl','rb')
+f=open('./data/413719000/new.pkl','rb')
 data=pickle.load(f)
 data=data[data['速度']>=1].values
 data_train_raw, data_test_raw = [],[]
