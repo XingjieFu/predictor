@@ -13,6 +13,8 @@ from tensorboardX import SummaryWriter
 import time
 from torch.utils.data import Dataset, DataLoader
 import tqdm
+import torch.nn as nn
+
 log_writer = SummaryWriter(log_dir="./logs")
 
 os.environ['CUDA_LAUNCH_BLOCKING'] ='1'
@@ -102,7 +104,7 @@ if __name__ == '__main__':
     opt = parser.parse_args()
     opt.d_word_vec = opt.d_model
     device="cuda:0"
-    #device="cpu"
+    # device="cpu"
 
     transformer = Transformer(
         500,
@@ -117,6 +119,7 @@ if __name__ == '__main__':
         dropout=opt.dropout,
     ).to(device)
 
+    # 没有用到mlp
     mlp = MLP(10,10,25,50,use_extra_input=False).to(device)
 
     model_train = transformer
@@ -147,7 +150,6 @@ if __name__ == '__main__':
         )
         end_time = time.time()
         print("train time = {} seconds".format(end_time - start_time))
-
 
 
     if opt.do_eval == True:
