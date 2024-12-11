@@ -133,10 +133,7 @@ class Transformer(nn.Module):
 
         super().__init__()
 
-
-
         self.d_model = d_model
-
 
         self.fpn=FPN()
         self.encoder = Encoder(
@@ -154,8 +151,6 @@ class Transformer(nn.Module):
         self.fdn = FDN()
 
         self.trg_word_prj = nn.Linear(d_model, n_trg_vocab, bias=False)
-
-
 
         for p in self.parameters():
             if p.dim() > 1:
