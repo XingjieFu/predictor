@@ -1,0 +1,5 @@
+torch
+tensorboardX
+tqdm
+pandas
+tensorboard
