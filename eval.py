@@ -21,6 +21,7 @@ def DrawTrajectory(tra_pred, tra_true):
         return
     
     idx = random.randrange(0, tra_true.shape[0])
+    idx =1
     plt.figure(figsize=(9, 6), dpi=150)
     pred = tra_pred[idx, :, :].cpu().detach().numpy()
     true = tra_true[idx, :, :].cpu().detach().numpy()
@@ -93,7 +94,7 @@ if __name__ == '__main__':
     parser.add_argument('-d_v', type=int, default=64)
     parser.add_argument('-n_head', type=int, default=2)
     parser.add_argument('-n_layers', type=int, default=1)
-    parser.add_argument('-dropout', type=float, default=0.1)
+    parser.add_argument('-dropout', type=float, default=0.0)
     parser.add_argument('-do_eval', type=bool, default=True)
 
     opt = parser.parse_args()
@@ -104,7 +105,10 @@ if __name__ == '__main__':
     if opt.do_eval:
         data_test = ShipTrajData(data_test_raw)
         test_loader = DataLoader(dataset=data_test, batch_size=opt.batch_size, shuffle=False)
-        model = torch.load('model_1.pt', weights_only=False).to(device)  # 加载模型
+        model = torch.load('model.pt', weights_only=False).to(device)  # 加载模型
+        for name, param in model.named_parameters():
+            print(f"Parameter {name}: {param[:5]}")
+            break  # 只打印第一个参数
         test(
             model=model,
             dataloader=test_loader,

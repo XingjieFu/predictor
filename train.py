@@ -197,7 +197,7 @@ if __name__ == '__main__':
     if opt.do_eval == True:
         data_test = ShipTrajData(data_test_raw)
         test_loader = DataLoader(dataset=data_test, batch_size=opt.batch_size, shuffle=False)
-        model = torch.load('model_1.pt', weights_only=False).to(device)  # 使用 weights_only=False 加载模型
+        model = torch.load('model.pt', weights_only=False).to(device)  # 使用 weights_only=False 加载模型
         test(
             model=model,
             dataloader=test_loader,
